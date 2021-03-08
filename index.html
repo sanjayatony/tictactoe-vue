@@ -10,9 +10,16 @@
   <body class="max-w-3xl mx-auto">
     <div id="app" class="flex flex-col">
       <h1 class="text-center text-4xl mb-8">Tic Tac Toe</h1>
+      <div v-if="winner" class="text-center bg-red-200 p-4 border border-gray-400 mb-8">
+        <p>'{{ winner }}' has won the game.</p>
+        <button @click="newGame()" class="bg-gray-200 p-2 mt-4 border border-gray-400">
+          Play Again
+        </button>
+      </div>
+
       <div id="board" class="grid grid-cols-3 gap-x-1 gap-y-1">
         <button
-          class="bg-yellow-200 h-60"
+          class="bg-yellow-200 h-60 text-2xl font-bold text-gray-500"
           v-for="(square, index) in squares"
           :key="index"
           @click="makeMove(index)"
