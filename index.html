@@ -10,15 +10,14 @@
   <body class="max-w-3xl mx-auto">
     <div id="app" class="flex flex-col">
       <h1 class="text-center text-4xl mb-8">Tic Tac Toe</h1>
-      <div class="grid grid-cols-3 gap-x-1 gap-y-1">
+      <div id="board" class="grid grid-cols-3 gap-x-1 gap-y-1">
         <button
           class="bg-yellow-200 h-60"
           v-for="(square, index) in squares"
           :key="index"
-          :value="square"
           @click="makeMove(index)"
         >
-          {{ value || '&nbsp;' }}
+          {{ square || '&nbsp;' }}
         </button>
       </div>
     </div>
