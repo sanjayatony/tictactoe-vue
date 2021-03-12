@@ -1,10 +1,9 @@
 var app = new Vue({
   el: "#app",
   data: {
-    x_boards: 3,
+    boardSize: 3,
     squares: Array(9).fill(null),
-    all_boards: 0,
-    gridStyle: "",
+    allBoards: 0,
     xIsNext: true,
     winner: null,
     gridStyle: "repeat(3, minmax(0, 1fr))",
@@ -49,9 +48,9 @@ var app = new Vue({
     newGame() {
       this.xIsNext = true;
       this.winner = null;
-      this.all_boards = Math.pow(this.x_boards, 2);
-      this.squares = Array(this.all_boards).fill(null);
-      this.gridStyle = `repeat(${this.x_boards}, minmax(0, 1fr))`;
+      this.allBoards = this.boardSize * this.boardSize;
+      this.squares = Array(this.allBoards).fill(null);
+      this.gridStyle = `repeat(${this.boardSize}, minmax(0, 1fr))`;
     },
   },
 });

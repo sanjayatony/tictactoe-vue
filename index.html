@@ -7,12 +7,12 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
     <title>Tic Tac Toe - Tony</title>
   </head>
-  <body class="max-w-2xl mx-auto">
+  <body class="max-w-xl mx-auto">
     <div id="app" class="flex flex-col">
       <h1 class="text-center text-4xl mb-8">Tic Tac Toe</h1>
       <div class="mb-4">
         <div class="block">Put the boards number</div>
-        <input v-model="x_boards" class="block border border-gray-200 p-2" />
+        <input v-model="boardSize" class="block border border-gray-200 p-2" />
         <button @click="newGame()" class="block p-2 bg-gray-200 p-2 mt-4 border border-gray-400">
           START
         </button>
@@ -23,10 +23,9 @@
           Play Again
         </button>
       </div>
-      {{x_boards}} {{all_boards}} {{gridStyle}}
       <div id="board" class="grid gap-x-1 gap-y-1" :style="{ 'grid-template-columns': gridStyle }">
         <button
-          class="bg-yellow-200 h-60 text-2xl font-bold text-gray-500"
+          class="bg-yellow-200 h-20 text-2xl font-bold text-gray-500"
           v-for="(square, index) in squares"
           :key="index"
           @click="makeMove(index)"
