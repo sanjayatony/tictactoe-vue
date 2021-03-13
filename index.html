@@ -7,12 +7,12 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
     <title>Tic Tac Toe - Tony</title>
   </head>
-  <body class="max-w-xl mx-auto">
+  <body class="max-w-xl ml-4">
     <div id="app" class="flex flex-col">
       <h1 class="text-center text-4xl mb-8">Tic Tac Toe</h1>
       <div class="mb-4">
         <div class="block">Put the boards number</div>
-        <input v-model="boardSize" class="block border border-gray-200 p-2" />
+        <input v-model="gridSize" class="block border border-gray-200 p-2" />
         <button @click="newGame()" class="block p-2 bg-gray-200 p-2 mt-4 border border-gray-400">
           START
         </button>

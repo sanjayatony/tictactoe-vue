@@ -1,12 +1,16 @@
 var app = new Vue({
   el: "#app",
   data: {
-    boardSize: 3,
+    gridSize: 3,
+    boards: 0,
     squares: Array(9).fill(null),
-    allBoards: 0,
     xIsNext: true,
     winner: null,
+    winLines: Array(),
     gridStyle: "repeat(3, minmax(0, 1fr))",
+    winCondition: Array(),
+    xCoords: Array(),
+    oCoords: Array(),
   },
   computed: {
     player() {
@@ -19,38 +23,68 @@ var app = new Vue({
       this.xIsNext = !this.xIsNext;
       this.winner = this.checkWinner();
       console.log(this.winner, this.checkWinner());
+      console.log(this.squares);
+    },
+    genWinLines() {
+      let size = parseInt(this.gridSize);
+      let horizontal = "";
+      let vertical = "";
+      let diagonal1 = "";
+      let diagonal2 = "";
+      let winArr = Array();
+      for (let j = 0; j < size; j++) {
+        horizontal = "";
+        vertical = "";
+        for (let i = 0; i < this.boards; i++) {
+          if (i / size == j) {
+            horizontal += i + ",";
+            for (let k = 1; k < size; k++) {
+              horizontal += i + k + ",";
+            }
+          }
+          if (i % size == j) {
+            vertical += i + ",";
+          }
+        }
+        horizontal = horizontal.substring(0, horizontal.length - 1);
+        vertical = vertical.substring(0, vertical.length - 1);
+        const h = horizontal.split(",");
+        const v = vertical.split(",");
+        winArr[j] = v;
+        winArr[j + size] = h;
+        diagonal1 += j * (size + 1) + ",";
+        diagonal2 += (j + 1) * (size - 1) + ",";
+      }
+      diagonal1 = diagonal1.substring(0, diagonal1.length - 1);
+      diagonal1 = diagonal1.split(",");
+      winArr.push(diagonal1);
+
+      diagonal2 = diagonal2.substring(0, diagonal2.length - 1);
+      diagonal2 = diagonal2.split(",");
+      winArr.push(diagonal2);
+      console.log(winArr);
+      this.winCondition = winArr;
     },
     checkWinner() {
       console.log("checking for a winner");
-      const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6],
-      ];
-      let winner = null;
-      lines.forEach(([a, b, c]) => {
-        if (
-          this.squares[a] &&
-          this.squares[a] === this.squares[b] &&
-          this.squares[a] === this.squares[c]
-        ) {
-          console.log("winner found", this.squares[a]);
-          winner = this.squares[a];
-        }
-      });
-      return winner;
+      // this.xCoords.push(this.squares.indexOf("X"));
+      // this.oCoords.push(this.squares.indexOf("O"));
+      // console.log(this.xCoords);
+      // console.log(this.oCoords);
+      // for (let a = 0; a < this.winCondition.length; a++) {
+      //   let flag = false;
+      //   for (let b = 0; b < this.gridSize; b++) {
+      //     //console.log(a + "," + b);
+      //   }
+      // }
     },
     newGame() {
       this.xIsNext = true;
       this.winner = null;
-      this.allBoards = this.boardSize * this.boardSize;
-      this.squares = Array(this.allBoards).fill(null);
-      this.gridStyle = `repeat(${this.boardSize}, minmax(0, 1fr))`;
+      this.boards = this.gridSize * this.gridSize;
+      this.squares = Array(this.boards).fill(null);
+      this.gridStyle = `repeat(${this.gridSize}, minmax(0, 1fr))`;
+      this.genWinLines();
     },
   },
 });
